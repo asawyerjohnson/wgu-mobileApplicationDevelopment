@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">WGU Term App</string>
+    <string name="mainActivityText">Welcome to WGU</string>
+    <string name="maBtn">Open Terms</string>
+    <string name="termActivityText">There\'s nothing here yet.</string>
+    <string name="courseActivityBtn">Open Course Activity</string>
+    <string name="courseActivityText">Try the next one!</string>
+    <string name="assessmentActivityBtn">Open Assessment Activity</string>
+    <string name="AssessmentActivityText">Nope, nothing here.</string>
+    <string name="termTitleText">Terms</string>
+    <string name="courseTitleText">Courses</string>
+    <string name="assessmentTitleText">Assessments</string>
 </resources>
