@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WGU Term App</string>
+    <string name="app_name">WGU Terms</string>
     <string name="mainActivityText">Welcome to WGU</string>
     <string name="maBtn">Open Terms</string>
     <string name="termActivityText">There\'s nothing here yet.</string>
@@ -10,4 +10,6 @@
     <string name="termTitleText">Terms</string>
     <string name="courseTitleText">Courses</string>
     <string name="assessmentTitleText">Assessments</string>
+    <string name="title_term_list">Terms</string>
+    <string name="title_term_detail">Term Detail</string>
 </resources>
