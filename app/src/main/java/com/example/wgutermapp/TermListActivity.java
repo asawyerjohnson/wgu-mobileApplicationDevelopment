@@ -64,7 +64,33 @@ public class TermListActivity extends AppCompatActivity {
         View recyclerView = findViewById(R.id.term_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
+
+        Term sampleTerm1 = new Term();
+        sampleTerm1.setTitle("Fall Term 1");
+        sampleTerm1.setStartDate("2019-06-01");
+        sampleTerm1.setEndDate("2019-12-31");
+        Term sampleTerm2 = new Term();
+        sampleTerm2.setTitle("Spring Term 2");
+        sampleTerm2.setStartDate("2020-01-01");
+        sampleTerm2.setEndDate("2020-05-31");
+        Term sampleTerm3 = new Term();
+        sampleTerm3.setTitle("Fall Term 3");
+        sampleTerm3.setStartDate("2020-06-01");
+        sampleTerm3.setEndDate("2020-12-31");
+        Term sampleTerm4 = new Term();
+        sampleTerm4.setTitle("Spring Term 4");
+        sampleTerm4.setStartDate("2021-01-01");
+        sampleTerm4.setEndDate("2021-05-31");
         dbHelper = new DBHelper(this);
+        dbHelper.addTerm(sampleTerm1);
+        dbHelper.addTerm(sampleTerm2);
+        dbHelper.addTerm(sampleTerm3);
+        dbHelper.addTerm(sampleTerm4);
+
+        List<Term> terms = dbHelper.getAllTerms();
+        for (Term term : terms) {
+            // do something
+        }
 
     }
 

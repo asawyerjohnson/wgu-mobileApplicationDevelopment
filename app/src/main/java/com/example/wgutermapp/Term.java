@@ -1,7 +1,5 @@
 package com.example.wgutermapp;
 
-import java.util.Date;
-
 public class Term {
 
     private long id;

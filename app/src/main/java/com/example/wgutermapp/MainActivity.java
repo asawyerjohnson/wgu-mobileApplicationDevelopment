@@ -7,9 +7,12 @@ import android.widget.Toast;
 import android.view.View;
 import android.widget.Button;
 
+import java.sql.SQLException;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btnLaunchTermActivity;
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

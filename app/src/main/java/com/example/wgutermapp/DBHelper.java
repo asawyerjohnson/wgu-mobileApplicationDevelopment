@@ -3,63 +3,72 @@ package com.example.wgutermapp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import org.w3c.dom.ls.LSException;
-
 import java.util.ArrayList;
-import java.util.Currency;
-import java.util.Date;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "TheDatabase.db";
-    private static final int DATABASE_VERSION = 2;
-    public static final String TERM_TABLE = "term_tbl";
-    public static final String TCOL_0 = "_id";
-    public static final String TCOL_1 = "title";
-    public static final String TCOL_2 = "start_date";
-    public static final String TCOL_3 = "end_date";
-    public static final String COURSE_TABLE = "course_tbl";
-    public static final String CCOL_0 = "_id";
-    public static final String CCOL_1 = "title";
-    public static final String CCOL_2 = "start_date";
-    public static final String CCOL_3 = "end_date";
-    public static final String CCOL_4 = "status";
-    public static final String CCOL_5 = "note";
-    public static final String CCOL_6 = "mentor_name";
-    public static final String CCOL_7 = "mentor_phone";
-    public static final String CCOL_8 = "mentor_email";
-    public static final String CCOL_9 = "term_id";
-    public static final String ASSESSMENT_TABLE = "assessment_tbl";
-    public static final String ACOL_0 = "_id";
-    public static final String ACOL_1 = "title";
-    public static final String ACOL_2 = "type";
-    public static final String ACOL_3 = "due_date";
-    public static final String ACOL_4 = "course_id";
+    private static final int DATABASE_VERSION = 1;
+    private static final String TERM_TABLE = "term_tbl";
+    private static final String TCOL_0 = "_id";
+    private static final String TCOL_1 = "title";
+    private static final String TCOL_2 = "start_date";
+    private static final String TCOL_3 = "end_date";
+    private static final String COURSE_TABLE = "course_tbl";
+    private static final String CCOL_0 = "_id";
+    private static final String CCOL_1 = "title";
+    private static final String CCOL_2 = "start_date";
+    private static final String CCOL_3 = "end_date";
+    private static final String CCOL_4 = "status";
+    private static final String CCOL_5 = "note";
+    private static final String CCOL_6 = "mentor_name";
+    private static final String CCOL_7 = "mentor_phone";
+    private static final String CCOL_8 = "mentor_email";
+    private static final String CCOL_9 = "term_id";
+    private static final String ASSESSMENT_TABLE = "assessment_tbl";
+    private static final String ACOL_0 = "_id";
+    private static final String ACOL_1 = "title";
+    private static final String ACOL_2 = "type";
+    private static final String ACOL_3 = "due_date";
+    private static final String ACOL_4 = "course_id";
+    private static final String CREATE_TERM_TABLE = "CREATE TABLE IF NOT EXISTS " + TERM_TABLE + "(" +
+            TCOL_0 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TCOL_1 + " TEXT, " +
+            TCOL_2 + " DATE, " +
+            TCOL_3 + " DATE)";
+    private static final String CREATE_COURSE_TABLE = "CREATE TABLE IF NOT EXISTS " + COURSE_TABLE + "(" +
+            CCOL_0 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            CCOL_1 + " TEXT, " +
+            CCOL_2 + " DATE, " +
+            CCOL_3 + " DATE, " +
+            CCOL_4 + " TEXT, " +
+            CCOL_5 + " TEXT, " +
+            CCOL_6 + " TEXT, " +
+            CCOL_7 + " TEXT, " +
+            CCOL_8 + " TEXT," +
+            CCOL_9 + " INTEGER," +
+            " FOREIGN KEY (" + CCOL_9 + ") REFERENCES " + TERM_TABLE + "(" + TCOL_0 +"));";
+    private static final String CREATE_ASSESSMENT_TABLE = "CREATE TABLE IF NOT EXISTS " + ASSESSMENT_TABLE + "(" +
+            ACOL_0 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            ACOL_1 + " TEXT, " +
+            ACOL_2 + " TEXT, " +
+            ACOL_3 + " DATE, " +
+            ACOL_4 + " INTEGER," +
+            " FOREIGN KEY (" + ACOL_4 + ") REFERENCES " + COURSE_TABLE + "(" + CCOL_0 +"));";
 
-    public DBHelper(Context context) {
+    DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create tables IF NOT EXISTS
-        createTermTable();
-        createCourseTable();
-        createAssessmentTable();
-        // TODO: Allow input from GUI to update database
-//        // SQL Insert Statements for Sample Data
-//        helperBee.insertRecord("INSERT INTO term_tbl(title, start_date, end_date) " +
-//                "VALUES('Sample Term', '2019-06-01', '2019-12-01')");
-//        helperBee.insertRecord("INSERT INTO mentor_tbl(name, phone, email) " +
-//                "VALUES('Sample Mentor', '222-222-2222', 'sample.mentor@wgu.egu')");
-//        helperBee.insertRecord("INSERT INTO course_tbl(title, start_date, end_date, status, note, mentor_id, term_id) " +
-//                "VALUES('Sample Course', '2019-06-01', '2019-08-01', 'In-Progress', 'Pay attention to geometry section', 1, 1)");
-//        helperBee.insertRecord("INSERT INTO assessment_tbl(title, type, due_date, course_id) " +
-//                "VALUES('Sample Assessment', 'Objective Exam', '2019-08-01', 1)");
+        db.execSQL(CREATE_TERM_TABLE);
+        db.execSQL(CREATE_COURSE_TABLE);
+        db.execSQL(CREATE_ASSESSMENT_TABLE);
     }
 
     @Override
@@ -157,10 +166,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 CCOL_6 + " TEXT, " +
                 CCOL_7 + " TEXT, " +
                 CCOL_8 + " TEXT," +
-                CCOL_9 + " INTEGER)");
+                CCOL_9 + " INTEGER," +
+                " FOREIGN KEY (" + CCOL_9 + ") REFERENCES " + TERM_TABLE + "(" + TCOL_0 +"));");
     }
 
-    public Course addCourse(Course course) {
+    public Course addCourse(Course course, long termId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(CCOL_1, course.getTitle());
@@ -171,8 +181,13 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(CCOL_6, course.getMentorName());
         values.put(CCOL_7, course.getMentorPhone());
         values.put(CCOL_8, course.getMentorEmail());
-        // TODO: automatically collect termId based on the term which the course is created in
-        values.put(CCOL_9, course.getTermId());
+        try {
+            Term thisTerm = new Term();
+            termId = thisTerm.getId();
+            values.put(CCOL_9, termId);
+        } catch (SQLException s) {
+            System.out.println("Error retrieving the termId for the selected term: " + s.getMessage());
+        }
         long id = db.insert(COURSE_TABLE, null, values);
         course.setId(id);
         db.close();
@@ -196,33 +211,37 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(6),
                     cursor.getString(7),
                     cursor.getString(8));
-            course.setId(cursor.getLong(0));
-            // THIS MIGHT BE WRONG
             course.setTermId(cursor.getLong(9));
+            course.setId(cursor.getLong(0));
+
             return course;
         }
         return null;
     }
 
-    public List<Course> getAllCourses() {
+    public List<Course> getCoursesforTerm() {
         List<Course> courseList = new ArrayList<>();
-        // TODO: Need to retrieve courses for the selected term - fix this.
-        String selectQuery = "SELECT * FROM " + COURSE_TABLE;
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
-        while (cursor.moveToNext()) {
-            Course course = new Course();
-            course.setId(Long.parseLong(cursor.getString(0)));
-            course.setTitle(cursor.getString(1));
-            course.setStartDate(cursor.getString(2));
-            course.setEndDate(cursor.getString(3));
-            course.setStatus(cursor.getString(4));
-            course.setNote(cursor.getString(5));
-            course.setMentorName(cursor.getString(6));
-            course.setMentorPhone(cursor.getString(7));
-            course.setMentorEmail(cursor.getString(8));
-            course.setTermId(Long.parseLong(cursor.getString(9)));
-            courseList.add(course);
+        // TODO: Need to retrieve courses for the selected term.
+        try {
+            String selectQuery = "SELECT * FROM " + COURSE_TABLE + ", " + TERM_TABLE + " WHERE " + CCOL_9 + " = " + TCOL_0;
+            SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+            Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
+            while (cursor.moveToNext()) {
+                Course course = new Course();
+                course.setId(Long.parseLong(cursor.getString(0)));
+                course.setTitle(cursor.getString(1));
+                course.setStartDate(cursor.getString(2));
+                course.setEndDate(cursor.getString(3));
+                course.setStatus(cursor.getString(4));
+                course.setNote(cursor.getString(5));
+                course.setMentorName(cursor.getString(6));
+                course.setMentorPhone(cursor.getString(7));
+                course.setMentorEmail(cursor.getString(8));
+                course.setTermId(Long.parseLong(cursor.getString(9)));
+                courseList.add(course);
+            }
+        } catch (SQLException s) {
+            System.out.println("Error retrieving courses for the selected term: " + s.getMessage());
         }
         return courseList;
     }
@@ -261,17 +280,24 @@ public class DBHelper extends SQLiteOpenHelper {
                 ACOL_1 + " TEXT, " +
                 ACOL_2 + " TEXT, " +
                 ACOL_3 + " DATE, " +
-                ACOL_4 + " INTEGER)");
+                ACOL_4 + " INTEGER," +
+                " FOREIGN KEY (" + ACOL_4 + ") REFERENCES " + COURSE_TABLE + "(" + CCOL_0 +"));");
     }
 
-    public Assessment addAssessment(Assessment assessment) {
+    public Assessment addAssessment(Assessment assessment, long courseId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(ACOL_1, assessment.getTitle());
         values.put(ACOL_2, assessment.getType());
         values.put(ACOL_3, assessment.getDueDate());
         // TODO: auto_collect courseId based on the course which this assessment is created in
-        values.put(ACOL_4, assessment.getCourseId());
+        try {
+            Course thisCourse = new Course();
+            courseId = thisCourse.getId();
+            values.put(ACOL_4, courseId);
+        } catch (SQLException s) {
+            System.out.println("Error retrieving the courseId for the selected course: " + s.getMessage());
+        }
         long id = db.insert(ASSESSMENT_TABLE, null, values);
         assessment.setId(id);
         db.close();
@@ -297,20 +323,24 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public List<Assessment> getAllAssessments() {
+    public List<Assessment> getAssessmentsForCourse() {
         List<Assessment> assessmentList = new ArrayList<>();
-        // TODO: Need to retrieve assessments for the selected course - fix this.
-        String selectQuery = "SELECT * FROM " + ASSESSMENT_TABLE;
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
-        while (cursor.moveToNext()) {
-            Assessment assessment = new Assessment();
-            assessment.setId(Long.parseLong(cursor.getString(0)));
-            assessment.setTitle(cursor.getString(1));
-            assessment.setType(cursor.getString(2));
-            assessment.setDueDate(cursor.getString(3));
-            assessment.setCourseId(Long.parseLong(cursor.getString(4)));
-            assessmentList.add(assessment);
+        // TODO: Need to retrieve assessments for the selected course.
+        try {
+            String selectQuery = "SELECT * FROM " + ASSESSMENT_TABLE + ", " + COURSE_TABLE + " WHERE " + ACOL_4 + " = " + CCOL_0;
+            SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+            Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
+            while (cursor.moveToNext()) {
+                Assessment assessment = new Assessment();
+                assessment.setId(Long.parseLong(cursor.getString(0)));
+                assessment.setTitle(cursor.getString(1));
+                assessment.setType(cursor.getString(2));
+                assessment.setDueDate(cursor.getString(3));
+                assessment.setCourseId(Long.parseLong(cursor.getString(4)));
+                assessmentList.add(assessment);
+            }
+        } catch (SQLException s) {
+            System.out.println("Error retrieving assessments for the selected course: " + s.getMessage());
         }
         return assessmentList;
     }
