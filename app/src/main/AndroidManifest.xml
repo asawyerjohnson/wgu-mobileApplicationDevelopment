@@ -8,10 +8,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".AssessmentActivity"></activity>
-        <activity android:name=".CourseActivity" />
-        <activity android:name=".TermActivity" />
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".CourseListActivity"></activity>
+        <activity
+            android:name=".TermListActivity"
+            android:label="@string/title_term_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TermDetailActivity"
+            android:label="@string/title_term_detail"
+            android:parentActivityName=".TermListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wgutermapp.TermListActivity" />
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
