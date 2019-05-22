@@ -1,25 +1,23 @@
 package com.example.wgutermapp;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Toast;
 
-/**
- * An activity representing a single Term detail screen. This
- * activity is only used on narrow width devices. On tablet-size devices,
- * item details are presented side-by-side with a list of items
- * in a {@link TermListActivity}.
- */
 public class TermDetailActivity extends AppCompatActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +31,8 @@ public class TermDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Edit this Term", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Dialog editTerm = onCreateDialog();
+                editTerm.show();
             }
         });
 
@@ -67,6 +65,39 @@ public class TermDetailActivity extends AppCompatActivity {
         }
     }
 
+    public Dialog onCreateDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        final EditText termTitleText = findViewById(R.id.termTitleText);
+        final EditText termStartDate = findViewById(R.id.termStart);
+        final EditText termEndDate = findViewById(R.id.termEnd);
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because it's going in the dialog layout
+        builder.setView(inflater.inflate(R.layout.term_edit, null));
+        builder.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                // TODO: Save to database
+//                Term thisTerm = new Term();
+//                thisTerm.setTitle(termTitleText.getText().toString());
+//                thisTerm.setStartDate(termStartDate.getText().toString());
+//                thisTerm.setEndDate(termEndDate.getText().toString());
+//                dbHelper = new DBHelper(mContext);
+//                dbHelper.updateTerm(thisTerm);
+//                dbHelper.close();
+            }
+        });
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+        return builder.create();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_term_detail_activity, menu);
@@ -79,9 +110,14 @@ public class TermDetailActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.view_courses:
                 // TODO: call method to open courses activity;;
+                Intent intent = new Intent(this, CourseListActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.delete_detail_term:
                 // TODO: call method to delete this particular term;;
+                Toast toast = Toast.makeText(this, "This option will delete the selected term",
+                        Toast.LENGTH_LONG);
+                toast.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

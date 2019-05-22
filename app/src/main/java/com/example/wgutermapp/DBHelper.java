@@ -79,13 +79,13 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void createTermTable() {
-        this.getWritableDatabase().execSQL("CREATE TABLE IF NOT EXISTS " + TERM_TABLE +
-                "(" + TCOL_0 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                TCOL_1 + " TEXT, " +
-                TCOL_2 + " DATE, " +
-                TCOL_3 + " DATE)");
-    }
+//    public void createTermTable() {
+//        this.getWritableDatabase().execSQL("CREATE TABLE IF NOT EXISTS " + TERM_TABLE +
+//                "(" + TCOL_0 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                TCOL_1 + " TEXT, " +
+//                TCOL_2 + " DATE, " +
+//                TCOL_3 + " DATE)");
+//    }
 
     public Term addTerm(Term term) {
         SQLiteDatabase db = this.getWritableDatabase();
