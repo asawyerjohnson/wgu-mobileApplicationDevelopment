@@ -1,4 +1,4 @@
-package com.example.wgutermapp;
+package com.example.wgutermapp.Model;
 
 public class Assessment {
 

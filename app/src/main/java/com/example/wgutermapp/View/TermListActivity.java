@@ -1,4 +1,4 @@
-package com.example.wgutermapp;
+package com.example.wgutermapp.View;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -20,6 +21,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.wgutermapp.Database.DBHelper;
+import com.example.wgutermapp.Model.Term;
+import com.example.wgutermapp.R;
+import com.example.wgutermapp.Util.MyReceiver;
 
 import java.util.List;
 
@@ -41,6 +47,7 @@ public class TermListActivity extends AppCompatActivity {
 
         DBHelper db = new DBHelper(mContext);
         List<Term> values = db.getAllTerms();
+
         final ArrayAdapter<Term> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, values);
         ListView listView = findViewById(R.id.listTerms);
@@ -118,7 +125,7 @@ public class TermListActivity extends AppCompatActivity {
                 return true;
             case R.id.sample_alarm:
                 // TODO: generate a sample alarm to notify user in five seconds
-                Intent intent=new Intent(TermListActivity.this,MyReceiver.class);
+                Intent intent=new Intent(TermListActivity.this, MyReceiver.class);
                 PendingIntent sender= PendingIntent.getBroadcast(TermListActivity.this,0,intent,0);
                 AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+1000, sender);

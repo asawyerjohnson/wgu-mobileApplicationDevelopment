@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".TermDetailActivity">
+    tools:context=".View.TermDetailActivity">
     <item android:id="@+id/view_courses"
           android:title="@string/view_courses"/>
     <item android:id="@+id/delete_detail_term"

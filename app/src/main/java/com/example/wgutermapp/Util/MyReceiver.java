@@ -1,4 +1,4 @@
-package com.example.wgutermapp;
+package com.example.wgutermapp.Util;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
+
+import com.example.wgutermapp.R;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 

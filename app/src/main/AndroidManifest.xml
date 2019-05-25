@@ -9,28 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".CourseListActivity"></activity>
+        <activity android:name=".View.CourseListActivity"></activity>
         <activity
-            android:name=".TermListActivity"
+            android:name=".View.TermListActivity"
             android:label="@string/title_term_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TermDetailActivity"
+            android:name=".View.TermDetailActivity"
             android:label="@string/title_term_detail"
-            android:parentActivityName=".TermListActivity"
+            android:parentActivityName=".View.TermListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.wgutermapp.TermListActivity" />
+                android:value="com.example.wgutermapp.View.TermListActivity" />
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".MyReceiver"
+        <receiver android:name=".Util.MyReceiver"
                   android:exported="true"
                   android:enabled="true"
                   >

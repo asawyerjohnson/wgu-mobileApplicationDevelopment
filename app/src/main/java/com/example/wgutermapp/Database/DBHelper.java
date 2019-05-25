@@ -1,4 +1,4 @@
-package com.example.wgutermapp;
+package com.example.wgutermapp.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,11 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.wgutermapp.Model.Assessment;
+import com.example.wgutermapp.Model.Course;
+import com.example.wgutermapp.Model.Term;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +65,7 @@ public class DBHelper extends SQLiteOpenHelper {
             ACOL_4 + " INTEGER," +
             " FOREIGN KEY (" + ACOL_4 + ") REFERENCES " + COURSE_TABLE + "(" + CCOL_0 +"));";
 
-    DBHelper(Context context) {
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
