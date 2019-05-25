@@ -1,7 +1,9 @@
 package com.example.wgutermapp;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -116,9 +118,10 @@ public class TermListActivity extends AppCompatActivity {
                 return true;
             case R.id.sample_alarm:
                 // TODO: generate a sample alarm to notify user in five seconds
-                Toast toast2 = Toast.makeText(mContext, "This option will create a sample alarm",
-                        Toast.LENGTH_LONG);
-                toast2.show();
+                Intent intent=new Intent(TermListActivity.this,MyReceiver.class);
+                PendingIntent sender= PendingIntent.getBroadcast(TermListActivity.this,0,intent,0);
+                AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+1000, sender);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
