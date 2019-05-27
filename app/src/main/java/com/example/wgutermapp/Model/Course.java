@@ -2,7 +2,7 @@ package com.example.wgutermapp.Model;
 
 public class Course {
 
-    private long id;
+    private int id;
     private String title;
     private String startDate;
     private String endDate;
@@ -11,7 +11,7 @@ public class Course {
     private String mentorName;
     private String mentorPhone;
     private String mentorEmail;
-    private long termId;
+    private int termId;
 
     public Course() {}
 
@@ -28,11 +28,11 @@ public class Course {
 
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -100,11 +100,11 @@ public class Course {
         this.mentorEmail = mentorEmail;
     }
 
-    public long getTermId() {
+    public int getTermId() {
         return termId;
     }
 
-    public void setTermId(long termId) {
+    public void setTermId(int termId) {
         this.termId = termId;
     }
 }

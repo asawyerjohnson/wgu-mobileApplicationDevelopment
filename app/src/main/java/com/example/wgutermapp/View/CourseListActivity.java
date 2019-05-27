@@ -2,26 +2,41 @@ package com.example.wgutermapp.View;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.wgutermapp.Adapter.CourseCursorAdapter;
+import com.example.wgutermapp.Database.DBHelper;
 import com.example.wgutermapp.R;
+
+import com.example.wgutermapp.View.dummy.DummyContent;
+
+import java.util.List;
 
 public class CourseListActivity extends AppCompatActivity {
 
+    DBHelper helper = new DBHelper(this);
     Context mContext = this;
 
     @Override
@@ -29,18 +44,42 @@ public class CourseListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(getTitle());
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Dialog courseForm = onCreateDialog();
                 courseForm.show();
             }
         });
-
+        // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        try {
+            ListView lvCourses = (ListView) findViewById(R.id.course_list);
+            if (lvCourses != null) {
+                final CourseCursorAdapter courseAdapter = new CourseCursorAdapter(this, helper.getCoursesCursor());
+                lvCourses.setAdapter(courseAdapter);
+                lvCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String value = courseAdapter.getItem(position).toString();
+                        Intent intent = new Intent(mContext, CourseDetailActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            } else {
+                Toast.makeText(mContext, "No Courses to Show", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -83,14 +122,14 @@ public class CourseListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (item.getItemId()) {
-            case R.id.sample_data:
-                // TODO: generate some sample Terms, Courses, and Assessments
-                Toast toast = Toast.makeText(mContext, "This option will create sample data",
-                        Toast.LENGTH_LONG);
-                toast.show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.add_sample_course:
+                helper.insertCourseSample();
+                Toast.makeText(mContext, "Refresh to view course", Toast.LENGTH_SHORT).show();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
         }
     }
+
+
 }

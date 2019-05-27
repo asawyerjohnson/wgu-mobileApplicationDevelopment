@@ -16,7 +16,7 @@
     <string name="title_term_detail">Term Detail</string>
     <string name="detail_menu">Menu</string>
     <string name="edit_detail">Edit</string>
-    <string name="delete_detail">Delete</string>
+    <string name="delete_detail">Delete Term</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -32,4 +32,13 @@
     <string name="yyyy_mm_dd">YYYY-MM-DD</string>
     <string name="sample_alarm">Set Sample Alarm</string>
     <string name="sample_data">Create Sample Data</string>
+    <string name="delete_course">Delete Course</string>
+    <string name="view_assessments">View Assessments</string>
+    <string name="mentor_phone">Mentor Phone:</string>
+    <string name="some_mentor">Some Mentor</string>
+    <string name="mentor_name">Mentor Name:</string>
+    <string name="note">Note:</string>
+    <string name="add_sample_course">Add Sample Course</string>
+    <string name="title_course_list">Courses</string>
+    <string name="title_course_detail">Course Detail</string>
 </resources>

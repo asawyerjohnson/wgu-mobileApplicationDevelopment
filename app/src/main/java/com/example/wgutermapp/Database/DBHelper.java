@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "TheDatabase.db";
+    private static final String DATABASE_NAME = "data.db";
     private static final int DATABASE_VERSION = 1;
     private static final String TERM_TABLE = "term_tbl";
     private static final String TCOL_0 = "_id";
@@ -84,21 +84,13 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-//    public void createTermTable() {
-//        this.getWritableDatabase().execSQL("CREATE TABLE IF NOT EXISTS " + TERM_TABLE +
-//                "(" + TCOL_0 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-//                TCOL_1 + " TEXT, " +
-//                TCOL_2 + " DATE, " +
-//                TCOL_3 + " DATE)");
-//    }
-
     public Term addTerm(Term term) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TCOL_1, term.getTitle());
         values.put(TCOL_2, term.getStartDate());
         values.put(TCOL_3, term.getEndDate());
-        long id = db.insert(TERM_TABLE, null, values);
+        int id = (int) db.insert(TERM_TABLE, null, values);
         term.setId(id);
         db.close();
         return term;
@@ -115,7 +107,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3));
-            term.setId(cursor.getLong(0));
+            term.setId(cursor.getInt(0));
             return term;
         }
         return null;
@@ -128,7 +120,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
         while (cursor.moveToNext()) {
             Term term = new Term();
-            term.setId(Long.parseLong(cursor.getString(0)));
+            term.setId(Integer.parseInt(cursor.getString(0)));
             term.setTitle(cursor.getString(1));
             term.setStartDate(cursor.getString(2));
             term.setEndDate(cursor.getString(3));
@@ -193,7 +185,7 @@ public class DBHelper extends SQLiteOpenHelper {
         } catch (SQLException s) {
             System.out.println("Error retrieving the termId for the selected term: " + s.getMessage());
         }
-        long id = db.insert(COURSE_TABLE, null, values);
+        int id = (int) db.insert(COURSE_TABLE, null, values);
         course.setId(id);
         db.close();
         return course;
@@ -216,8 +208,8 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(6),
                     cursor.getString(7),
                     cursor.getString(8));
-            course.setTermId(cursor.getLong(9));
-            course.setId(cursor.getLong(0));
+            course.setTermId(cursor.getInt(9));
+            course.setId(cursor.getInt(0));
 
             return course;
         }
@@ -233,7 +225,7 @@ public class DBHelper extends SQLiteOpenHelper {
             Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
             while (cursor.moveToNext()) {
                 Course course = new Course();
-                course.setId(Long.parseLong(cursor.getString(0)));
+                course.setId(Integer.parseInt(cursor.getString(0)));
                 course.setTitle(cursor.getString(1));
                 course.setStartDate(cursor.getString(2));
                 course.setEndDate(cursor.getString(3));
@@ -242,7 +234,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 course.setMentorName(cursor.getString(6));
                 course.setMentorPhone(cursor.getString(7));
                 course.setMentorEmail(cursor.getString(8));
-                course.setTermId(Long.parseLong(cursor.getString(9)));
+                course.setTermId(Integer.parseInt(cursor.getString(9)));
                 courseList.add(course);
             }
         } catch (SQLException s) {
@@ -303,7 +295,7 @@ public class DBHelper extends SQLiteOpenHelper {
         } catch (SQLException s) {
             System.out.println("Error retrieving the courseId for the selected course: " + s.getMessage());
         }
-        long id = db.insert(ASSESSMENT_TABLE, null, values);
+        int id = (int) db.insert(ASSESSMENT_TABLE, null, values);
         assessment.setId(id);
         db.close();
         return assessment;
@@ -320,9 +312,9 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3));
-            assessment.setId(cursor.getLong(0));
+            assessment.setId(cursor.getInt(0));
             // THIS MIGHT BE WRONG
-            assessment.setCourseId(cursor.getLong(4));
+            assessment.setCourseId(cursor.getInt(4));
             return assessment;
         }
         return null;
@@ -337,11 +329,11 @@ public class DBHelper extends SQLiteOpenHelper {
             Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
             while (cursor.moveToNext()) {
                 Assessment assessment = new Assessment();
-                assessment.setId(Long.parseLong(cursor.getString(0)));
+                assessment.setId(Integer.parseInt(cursor.getString(0)));
                 assessment.setTitle(cursor.getString(1));
                 assessment.setType(cursor.getString(2));
                 assessment.setDueDate(cursor.getString(3));
-                assessment.setCourseId(Long.parseLong(cursor.getString(4)));
+                assessment.setCourseId(Integer.parseInt(cursor.getString(4)));
                 assessmentList.add(assessment);
             }
         } catch (SQLException s) {
@@ -372,4 +364,20 @@ public class DBHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(id) });
         db.close();
     }
+
+    public void insertTermSample() {
+        Term term = new Term("Spring 2020, Term 2", "2020-01-01", "2020-05-31");
+        addTerm(term);
+    }
+
+    public void insertCourseSample() {
+        Course course = new Course("Orientation", "2019-06-01", "2019-07-31", "Active", "Pass this course first.",
+                "Some Mentor", "222-222-2222", "some.mentor@wgu.edu");
+        addCourse(course, 1);
+    }
+
+    public void insertAssessmentSample() {
+
+    }
+
 }

@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.wgutermapp.Adapter.TermCursorAdapter;
 import com.example.wgutermapp.Database.DBHelper;
 import com.example.wgutermapp.Model.Term;
 import com.example.wgutermapp.R;
@@ -29,11 +30,9 @@ import com.example.wgutermapp.Util.MyReceiver;
 
 import java.util.List;
 
-/**
- * An activity representing a list of Terms.
- */
 public class TermListActivity extends AppCompatActivity {
 
+    DBHelper helper = new DBHelper(this);
     Context mContext = this;
 
     @Override
@@ -45,24 +44,25 @@ public class TermListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        DBHelper db = new DBHelper(mContext);
-        List<Term> values = db.getAllTerms();
-
-        final ArrayAdapter<Term> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, values);
-        ListView listView = findViewById(R.id.listTerms);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                String value = adapter.getItem(position).toString();
-                Intent intent = new Intent(mContext, TermDetailActivity.class);
-                startActivity(intent);
+        try {
+            ListView lvTerms = (ListView) findViewById(R.id.listTerms);
+            if (lvTerms != null) {
+                final TermCursorAdapter termAdapter = new TermCursorAdapter(this, helper.getTermsCursor());
+                lvTerms.setAdapter(termAdapter);
+                lvTerms.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String value = termAdapter.getItem(position).toString();
+                        Intent intent = new Intent(mContext, TermDetailActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            } else {
+                Toast.makeText(mContext, "No Terms to Display", Toast.LENGTH_SHORT).show();
             }
-        });
-
-        db.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +90,7 @@ public class TermListActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 // TODO: Save to database
-//                Term thisTerm = new Term();
+                Term thisTerm = new Term();
 //                thisTerm.setTitle(termTitleText.getText().toString());
 //                thisTerm.setStartDate(termStartDate.getText().toString());
 //                thisTerm.setEndDate(termEndDate.getText().toString());
@@ -119,9 +119,11 @@ public class TermListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.sample_data:
                 // TODO: generate some sample Terms, Courses, and Assessments
-                Toast toast = Toast.makeText(mContext, "This option will create sample data",
-                        Toast.LENGTH_LONG);
-                toast.show();
+//                helper.insertTermSample();
+//
+//                Toast toast = Toast.makeText(mContext, "Refresh to see sample data",
+//                        Toast.LENGTH_SHORT);
+//                toast.show();
                 return true;
             case R.id.sample_alarm:
                 // TODO: generate a sample alarm to notify user in five seconds

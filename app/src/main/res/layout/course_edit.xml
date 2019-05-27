@@ -17,7 +17,7 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Course: "
+                android:text="Edit Course: "
                 android:textSize="20sp" />
         </TableRow>
 
@@ -65,7 +65,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/endDateLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/end_date" />
@@ -153,7 +153,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/courseMentorNumberLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mentor_phone" />

@@ -9,7 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".View.CourseListActivity"></activity>
+        <activity
+            android:name=".View.CourseListActivity"
+            android:label="@string/title_course_list"
+            android:parentActivityName=".View.TermDetailActivity"
+            android:theme="@style/NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wgutermapp.View.TermDetailActivity" />
+        </activity>
+        <activity
+            android:name=".View.CourseDetailActivity"
+            android:label="@string/title_course_detail"
+            android:parentActivityName=".View.CourseListActivity"
+            android:theme="@style/NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wgutermapp.View.CourseListActivity" />
+        </activity>
+        <activity android:name=".View.AssessmentListActivity" />
         <activity
             android:name=".View.TermListActivity"
             android:label="@string/title_term_list"
@@ -30,13 +48,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".Util.MyReceiver"
-                  android:exported="true"
-                  android:enabled="true"
-                  >
-        </receiver>
 
+        <receiver
+            android:name=".Util.MyReceiver"
+            android:enabled="true"
+            android:exported="true" />
     </application>
-
 
 </manifest>
