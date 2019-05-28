@@ -10,6 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+            android:name=".View.AssessmentListActivity"
+            android:label="@string/title_assessment_list"
+            android:parentActivityName=".View.CourseDetailActivity"
+            android:theme="@style/NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wgutermapp.View.CourseDetailActivity" />
+        </activity>
+        <activity
+            android:name=".View.AssessmentDetailActivity"
+            android:label="@string/title_assessment_detail"
+            android:parentActivityName=".View.AssessmentListActivity"
+            android:theme="@style/NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wgutermapp.View.AssessmentListActivity" />
+        </activity>
+        <activity
             android:name=".View.CourseListActivity"
             android:label="@string/title_course_list"
             android:parentActivityName=".View.TermDetailActivity"
@@ -27,7 +45,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.wgutermapp.View.CourseListActivity" />
         </activity>
-        <activity android:name=".View.AssessmentListActivity" />
         <activity
             android:name=".View.TermListActivity"
             android:label="@string/title_term_list"

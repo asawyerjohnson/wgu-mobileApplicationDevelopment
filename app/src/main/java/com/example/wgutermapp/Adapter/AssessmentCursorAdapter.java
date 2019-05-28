@@ -10,22 +10,21 @@ import android.widget.TextView;
 
 import com.example.wgutermapp.R;
 
-public class CourseCursorAdapter extends CursorAdapter {
+public class AssessmentCursorAdapter extends CursorAdapter {
 
-    public CourseCursorAdapter(Context context, Cursor cursor) {
-
+    public AssessmentCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(R.layout.course_list_content,
+        return LayoutInflater.from(context).inflate(R.layout.assessment_list_content,
                 parent, false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView tvContent = view.findViewById(R.id.course_title);
+        TextView tvContent = view.findViewById(R.id.assessment_title);
         String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
         tvContent.setText(title);
     }

@@ -41,4 +41,10 @@
     <string name="add_sample_course">Add Sample Course</string>
     <string name="title_course_list">Courses</string>
     <string name="title_course_detail">Course Detail</string>
+    <string name="title_assessment_list">Assessments</string>
+    <string name="title_assessment_detail">Assessment Detail</string>
+    <string name="title">Title:</string>
+    <string name="type">Type:</string>
+    <string name="due_date">Due Date:</string>
+    <string name="add_sample_assessment">Add Sample Assessment</string>
 </resources>

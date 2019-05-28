@@ -83,6 +83,9 @@ public class CourseDetailActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.view_assessments:
                 // TODO: Create Assessments List etc and call here
+                Intent intent = new Intent(this, AssessmentListActivity.class);
+                startActivity(intent);
+
                 return true;
             case R.id.delete_course:
                 // TODO: Delete this course

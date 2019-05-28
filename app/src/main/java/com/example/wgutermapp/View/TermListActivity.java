@@ -119,11 +119,11 @@ public class TermListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.sample_data:
                 // TODO: generate some sample Terms, Courses, and Assessments
-//                helper.insertTermSample();
-//
-//                Toast toast = Toast.makeText(mContext, "Refresh to see sample data",
-//                        Toast.LENGTH_SHORT);
-//                toast.show();
+                helper.insertTermSample();
+
+                Toast toast = Toast.makeText(mContext, "Refresh to see sample data",
+                        Toast.LENGTH_SHORT);
+                toast.show();
                 return true;
             case R.id.sample_alarm:
                 // TODO: generate a sample alarm to notify user in five seconds

@@ -377,7 +377,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void insertAssessmentSample() {
-
+        Assessment assessment = new Assessment("Assessment 1", "Objective", "2019-07-25");
+        addAssessment(assessment, 1);
     }
 
 }

@@ -1,6 +1,8 @@
 package com.example.wgutermapp.View;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,14 +10,13 @@ import android.view.ViewGroup;
 
 import com.example.wgutermapp.R;
 
-
 /**
- * A fragment representing a single Course detail screen.
- * This fragment is either contained in a {@link CourseListActivity}
- * in two-pane mode (on tablets) or a {@link CourseDetailActivity}
+ * A fragment representing a single Assessment detail screen.
+ * This fragment is either contained in a {@link AssessmentListActivity}
+ * in two-pane mode (on tablets) or a {@link AssessmentDetailActivity}
  * on handsets.
  */
-public class CourseDetailFragment extends Fragment {
+public class AssessmentDetailFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -25,13 +26,13 @@ public class CourseDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-
+//    private DummyContent.DummyItem mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public CourseDetailFragment() {
+    public AssessmentDetailFragment() {
     }
 
     @Override
@@ -44,22 +45,22 @@ public class CourseDetailFragment extends Fragment {
             // to load content from a content provider.
 //            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
-//            Activity activity = this.getActivity();
-//            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-//            if (appBarLayout != null) {
+            Activity activity = this.getActivity();
+            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+            if (appBarLayout != null) {
 //                appBarLayout.setTitle(mItem.content);
-//            }
+            }
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.course_detail, container, false);
+        View rootView = inflater.inflate(R.layout.assessment_detail, container, false);
 
         // Show the dummy content as text in a TextView.
 //        if (mItem != null) {
-//            ((TextView) rootView.findViewById(R.id.course_detail)).setText(mItem.details);
+//            ((TextView) rootView.findViewById(R.id.assessment_detail)).setText(mItem.details);
 //        }
 
         return rootView;
