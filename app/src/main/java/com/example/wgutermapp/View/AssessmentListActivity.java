@@ -54,15 +54,15 @@ public class AssessmentListActivity extends AppCompatActivity {
         }
 
         try {
-            ListView lvAssessments = (ListView) findViewById(R.id.course_list);
+            ListView lvAssessments = (ListView) findViewById(R.id.assessment_list);
             if (lvAssessments != null) {
-                final AssessmentCursorAdapter assessmentAdapter = new AssessmentCursorAdapter(this, helper.getCoursesCursor());
+                final AssessmentCursorAdapter assessmentAdapter = new AssessmentCursorAdapter(this, helper.getAssessmentCursor());
                 lvAssessments.setAdapter(assessmentAdapter);
                 lvAssessments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String value = assessmentAdapter.getItem(position).toString();
-                        Intent intent = new Intent(mContext, CourseDetailActivity.class);
+                        Intent intent = new Intent(mContext, AssessmentDetailActivity.class);
                         startActivity(intent);
                     }
                 });

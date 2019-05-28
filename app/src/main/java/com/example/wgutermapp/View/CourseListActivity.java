@@ -53,7 +53,7 @@ public class CourseListActivity extends AppCompatActivity {
         }
 
         try {
-            ListView lvCourses = (ListView) findViewById(R.id.course_list);
+            ListView lvCourses = (ListView) findViewById(R.id.listCourses);
             if (lvCourses != null) {
                 final CourseCursorAdapter courseAdapter = new CourseCursorAdapter(this, helper.getCoursesCursor());
                 lvCourses.setAdapter(courseAdapter);

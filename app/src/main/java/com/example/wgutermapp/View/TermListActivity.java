@@ -34,7 +34,7 @@ public class TermListActivity extends AppCompatActivity {
 
     DBHelper helper = new DBHelper(this);
     Context mContext = this;
-
+    TermCursorAdapter termAdapter;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +47,7 @@ public class TermListActivity extends AppCompatActivity {
         try {
             ListView lvTerms = (ListView) findViewById(R.id.listTerms);
             if (lvTerms != null) {
-                final TermCursorAdapter termAdapter = new TermCursorAdapter(this, helper.getTermsCursor());
+                termAdapter = new TermCursorAdapter(this, helper.getTermsCursor());
                 lvTerms.setAdapter(termAdapter);
                 lvTerms.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -120,7 +120,7 @@ public class TermListActivity extends AppCompatActivity {
             case R.id.sample_data:
                 // TODO: generate some sample Terms, Courses, and Assessments
                 helper.insertTermSample();
-
+                termAdapter.notifyDataSetChanged();
                 Toast toast = Toast.makeText(mContext, "Refresh to see sample data",
                         Toast.LENGTH_SHORT);
                 toast.show();

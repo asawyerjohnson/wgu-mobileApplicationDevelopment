@@ -167,7 +167,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 " FOREIGN KEY (" + CCOL_9 + ") REFERENCES " + TERM_TABLE + "(" + TCOL_0 +"));");
     }
 
-    public Course addCourse(Course course, long termId) {
+    public Course addCourse(Course course, int termId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(CCOL_1, course.getTitle());
@@ -244,7 +244,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getCoursesCursor() {
-        String selectQuery = "SELECT * FROM " + COURSE_TABLE;
+        String selectQuery = "SELECT * FROM " + COURSE_TABLE + " WHERE " + CCOL_9 + " = 0";
         SQLiteDatabase db = this.getWritableDatabase();
         return db.rawQuery(selectQuery, null);
     }
